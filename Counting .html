@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word & Character Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+            color: #333;
+            transition: background 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background-color: #222;
+            color: #fff;
+        }
+        textarea {
+            width: 80%;
+            height: 150px;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .toggle-btn {
+            background-color: #444;
+        }
+        .toggle-btn:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Word & Character Counter</h2>
+    <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button><br><br>
+    <textarea id="textInput" placeholder="Type or paste your text here..." oninput="countText()"></textarea><br>
+    <p id="wordCount">Word Count: 0</p>
+    <p id="charCount">Character Count: 0</p>
+    <button onclick="downloadText()">Download as Text File</button>
+
+    <script>
+        function countText() {
+            let text = document.getElementById("textInput").value;
+            let words = text.trim().split(/\s+/);
+            let wordCount = text.trim() === "" ? 0 : words.length;
+            let charCount = text.length;
+
+            document.getElementById("wordCount").innerText = "Word Count: " + wordCount;
+            document.getElementById("charCount").innerText = "Character Count: " + charCount;
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        function downloadText() {
+            let text = document.getElementById("textInput").value;
+            let blob = new Blob([text], { type: "text/plain" });
+            let link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "text.txt";
+            link.click();
+        }
+    </script>
+
+</body>
+</html>
